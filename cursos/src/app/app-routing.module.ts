@@ -1,0 +1,18 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AlumnosComponent } from './components/alumnos/alumnos.component';
+import { CursosComponent } from './components/cursos/cursos.component';
+import { ExamenesComponent } from './components/examenes/examenes.component';
+
+// Agregar componentes a la ruta para desplazarse entre ellas.
+const routes: Routes = [
+  {path: 'alumnos', component: AlumnosComponent},
+  {path: 'cursos', component: CursosComponent},
+  {path: 'examanes', component: ExamenesComponent},
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
