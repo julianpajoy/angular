@@ -6,9 +6,10 @@ import { ExamenesComponent } from './components/examenes/examenes.component';
 
 // Agregar componentes a la ruta para desplazarse entre ellas.
 const routes: Routes = [
+  {path: '', pathMatch: 'full', redirectTo: 'cursos'},
   {path: 'alumnos', component: AlumnosComponent},
   {path: 'cursos', component: CursosComponent},
-  {path: 'examenes', component: ExamenesComponent},
+  {path: 'examenes', component: ExamenesComponent}
 ];
 
 @NgModule({

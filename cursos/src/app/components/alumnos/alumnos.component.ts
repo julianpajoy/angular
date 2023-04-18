@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AlumnosComponent {
 
+  //public titulo: string = 'listado de alumnos';
+
+  titulo = 'listado de alumnos';
+
 }
