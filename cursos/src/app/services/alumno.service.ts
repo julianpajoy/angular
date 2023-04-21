@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Alumno } from '../models/alumno';
@@ -39,6 +39,15 @@ export class AlumnoService {
   public listar(): Observable<Alumno[]>{
     return this.http.get<Alumno[]>(this.basePuntofinal);
   }
+
+  // Listar por pagina
+  public listarPaginas(pagina: string, tamanio: string): Observable<any>{
+    const parametro = new HttpParams()
+    .set('pagina', pagina)
+    .set('tamanio', tamanio);
+    return this.http.get<any>(this.basePuntofinal + '/pagina', { params: parametro });
+  }
+
 
   // Metodo para ver Alumno por Id
   public ver(id: number): Observable<Alumno>{
