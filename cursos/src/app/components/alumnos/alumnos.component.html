@@ -1,6 +1,7 @@
 <div class="card text-bg-light mb-3">
     <div class="card-header">{{titulo}}</div>
     <div class="card-body">
+        <button class="btn btn-info btn-sm" routerLink="/alumnos/form">Crear</button>
         <table class="table table-hover table-striped">
             <thead> <!-- Tabla Encabezado -->
                 <tr> <!-- Columna -->
@@ -9,6 +10,7 @@
                     <th>Apellido</th>
                     <th>Email</th>
                     <th>Fecha creación</th>
+                    <th>Editar</th>
                 </tr>
             </thead>
             <tbody> <!-- Tabla Cuerpo -->
@@ -18,6 +20,9 @@
                     <td>{{alumno.apellido | uppercase}}</td>
                     <td>{{alumno.email}}</td>
                     <td>{{alumno.createAt | date: 'd/M/yyyy'}}</td>
+                    <td>
+                        <button class="btn btn-primary my-2" [routerLink]="['/alumnos/form', alumno.id]">¿editar?</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

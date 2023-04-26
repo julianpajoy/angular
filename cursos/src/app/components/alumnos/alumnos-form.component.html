@@ -1,0 +1,40 @@
+<div class="card text-bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2" routerLink="/alumnos">Regresar</button>
+
+        <!-- Formulario para llenar con los datos -->
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" class="form-control" id="nombre"
+                [(ngModel)] = "alumno.nombre">
+                <!-- Mensaje de error del backend -->
+                <div class="alert alert-danger" *ngIf="errores && errores.nombre">
+                    {{ errores.nombre }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" class="form-control" id="apellido"
+                [(ngModel)] = "alumno.apellido">
+                <!-- Mensaje de error del backend -->
+                <div class="alert alert-danger" *ngIf="errores && errores.apellido">
+                    {{ errores.apellido }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" class="form-control" id="email"
+                [(ngModel)] = "alumno.email">
+                <!-- Mensaje de error del backend -->
+                <div class="alert alert-danger" *ngIf="errores && errores.email">
+                    {{ errores.email }}
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" (click)="crearAlumno()">Crear</button>
+            </div>
+        </form>
+    </div>
+</div>

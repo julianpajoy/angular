@@ -11,7 +11,7 @@ export class AlumnosComponent {
 
   //public titulo: string = 'listado de alumnos';
 
-  titulo = 'listado de alumnos';
+  titulo = 'Listado de alumnos';
   alumnos: Alumno[] | undefined;
 
   constructor(private service: AlumnoService) {}
