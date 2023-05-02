@@ -43,8 +43,8 @@ export class AlumnoService {
   // Listar por pagina
   public listarPaginas(pagina: string, tamanio: string): Observable<any>{
     const parametro = new HttpParams()
-    .set('pagina', pagina)
-    .set('tamanio', tamanio);
+    .set('page', pagina)
+    .set('size', tamanio);
     return this.http.get<any>(this.basePuntofinal + '/pagina', { params: parametro });
   }
 

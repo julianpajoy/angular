@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import Swal from 'sweetalert2';
@@ -15,14 +16,52 @@ export class AlumnosComponent {
   titulo = 'Listado de alumnos';
   alumnos: Alumno[] | undefined;
 
+  totalRegistros = 0;
+  paginaActual = 0;
+  totalPorPagina = 4; // Por defecto
+  opcTamanioPagina: number[] = [3, 5, 10, 25, 100];
+
   constructor(private service: AlumnoService) {}
 
   ngOnInit(){
-    this.service.listar().subscribe(alumnos => { // Recibe lista de datos
+    /*this.service.listar().subscribe(alumnos => { // Recibe lista de datos
       this.alumnos = alumnos; // Observador
-    });
+    });*/
+
+    /* Como en "alumno.service.ts" recibe dos parametros de tipo string
+    se hace la conversion a string de las paginas 
+    const paginaActual = this.paginaActual+'';
+    const totalPorPagina = this.totalPorPagina+'';
+
+    this.service.listarPaginas(paginaActual, totalPorPagina)
+    // p: paginacion
+    .subscribe(p => {
+      this.alumnos = p.content as Alumno[];
+      this.totalRegistros = p.totalElements as number;
+    });*/
+
+    this.calcularRangos();
   }
 
+  public paginar(event: PageEvent): void{
+    this.paginaActual = event.pageIndex;
+    this.totalPorPagina = event.pageSize;
+    this.calcularRangos();
+  }
+
+
+  private calcularRangos(){
+    const paginaActual = this.paginaActual+'';
+    const totalPorPagina = this.totalPorPagina+'';
+
+    // p: paginacion
+    this.service.listarPaginas(paginaActual, totalPorPagina)
+    .subscribe(p => {
+      this.alumnos = p.content as Alumno[];
+      this.totalRegistros = p.totalElements as number;
+    });
+  }
+ 
   public eliminar(alumno: Alumno): void{
     /*if(confirm('¿Seguro que desea eliminar a ' +alumno.nombre+ '?')){
       this.service.eliminar(alumno.id).subscribe(() => {
@@ -43,7 +82,8 @@ export class AlumnosComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.eliminar(alumno.id).subscribe(() => {
-          this.alumnos = this.alumnos.filter(a => a !== alumno);
+          // this.alumnos = this.alumnos.filter(a => a !== alumno);
+          this.calcularRangos();
           Swal.fire('Eliminado: ', `Alumno ${alumno.nombre} eliminado con éxito`, 'success');
         });
       }
