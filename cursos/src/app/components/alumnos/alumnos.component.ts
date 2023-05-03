@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import Swal from 'sweetalert2';
@@ -20,6 +20,9 @@ export class AlumnosComponent {
   paginaActual = 0;
   totalPorPagina = 4; // Por defecto
   opcTamanioPagina: number[] = [3, 5, 10, 25, 100];
+
+  // traducir label paginador
+  @ViewChild(MatPaginator) paginador: MatPaginator;
 
   constructor(private service: AlumnoService) {}
 
@@ -43,22 +46,24 @@ export class AlumnosComponent {
     this.calcularRangos();
   }
 
-  public paginar(event: PageEvent): void{
-    this.paginaActual = event.pageIndex;
-    this.totalPorPagina = event.pageSize;
+  // Metodo para cambiar entre las paginas
+  public paginar(evento: PageEvent): void{
+    this.paginaActual = evento.pageIndex;
+    this.totalPorPagina = evento.pageSize;
     this.calcularRangos();
   }
 
 
   private calcularRangos(){
-    const paginaActual = this.paginaActual+'';
-    const totalPorPagina = this.totalPorPagina+'';
+    //const paginaActual = this.paginaActual+'';
+    //const totalPorPagina = this.totalPorPagina+'';
 
     // p: paginacion
-    this.service.listarPaginas(paginaActual, totalPorPagina)
+    this.service.listarPaginas(this.paginaActual.toString(), this.totalPorPagina.toString())
     .subscribe(p => {
-      this.alumnos = p.content as Alumno[];
-      this.totalRegistros = p.totalElements as number;
+      this.alumnos = p.content as Alumno[]; // p.content es la lista paginada y se convierte a un arreglo
+      this.totalRegistros = p.totalElements as number; // Asignar el total de registros
+      this.paginador._intl.itemsPerPageLabel = 'Registros por página';  // Cambiar el label a espaniol
     });
   }
  
