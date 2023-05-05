@@ -11,4 +11,8 @@ export class AlumnoService extends ComunService<Alumno>{
 
   protected override basePuntofinal = 'http://localhost:8090/api/alumnos';
 
+  constructor(override http: HttpClient) {
+    super(http);
+  }
+
 }

@@ -12,12 +12,14 @@ import { CommonListarComponent } from '../common-listar.component';
 export class AlumnosComponent 
 extends CommonListarComponent<Alumno, AlumnoService>{
 
-  override titulo = 'Listado de alumnos';
-  protected override nombreModel = Alumno.name;
+  //override titulo = 'Listado de alumnos';
+  //protected override nombreModel = Alumno.name;
 
   constructor(service: AlumnoService) {
 
     super(service);
+    this.nombreModel = Alumno.name;
+    this.titulo = 'Listado de alumnos';
   }
 
 }

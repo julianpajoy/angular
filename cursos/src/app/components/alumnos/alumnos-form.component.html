@@ -8,7 +8,7 @@
             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input type="text" name="nombre" class="form-control" id="nombre"
-                [(ngModel)] = "alumno.nombre">
+                [(ngModel)] = "modelo.nombre">
                 <!-- Mensaje de error del backend -->
                 <div class="alert alert-danger" *ngIf="errores?.nombre">
                     {{ errores.nombre }}
@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="apellido">Apellido</label>
                 <input type="text" name="apellido" class="form-control" id="apellido"
-                [(ngModel)] = "alumno.apellido">
+                [(ngModel)] = "modelo.apellido">
                 <!-- Mensaje de error del backend -->
                 <div class="alert alert-danger" *ngIf="errores && errores.apellido">
                     {{ errores.apellido }}
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" name="email" class="form-control" id="email"
-                [(ngModel)] = "alumno.email">
+                [(ngModel)] = "modelo.email">
                 <!-- Mensaje de error del backend -->
                 <div class="alert alert-danger" *ngIf="errores?.email">
                     {{ errores.email }}
@@ -35,8 +35,8 @@
             <div class="form-group">
                 <!-- interrogación (?) es un If y el dos puntos (:) es el Else -->
                 <button type="button" class="btn btn-primary" 
-                    (click)="alumno.id? editarAlumno(): crearAlumno()">
-                    {{ alumno.id? 'Actualizar': 'Crear' }}
+                    (click)="modelo.id? editarAlumno(): crear()">
+                    {{ modelo.id? 'Actualizar': 'Crear' }}
                 </button>
             </div>
         </form>

@@ -1,10 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, Injectable, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 import { Generico } from '../models/generico';
 import { ComunService } from '../services/comun.service';
 
-@Component({})
+@Component({
+  selector: 'common-listar-component',
+  template: '<div></div>'
+})
 export abstract class CommonListarComponent<E extends Generico, S extends ComunService<E>> {
 
   titulo: string;
@@ -21,7 +24,7 @@ export abstract class CommonListarComponent<E extends Generico, S extends ComunS
   // traducir label paginador
   @ViewChild(MatPaginator) paginador: MatPaginator;
 
-  constructor(protected service: S) {}
+  constructor(@Inject('service') protected service: S) {}
 
   ngOnInit(){
     /*this.service.listar().subscribe(alumnos => { // Recibe lista de datos
