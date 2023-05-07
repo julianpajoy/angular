@@ -32,6 +32,14 @@
                     {{ errores.email }}
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input (change)="seleccionarFoto($event)" class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+
             <div class="form-group">
                 <!-- interrogación (?) es un If y el dos puntos (:) es el Else -->
                 <button type="button" class="btn btn-primary" 

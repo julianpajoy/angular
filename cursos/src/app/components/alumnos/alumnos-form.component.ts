@@ -13,11 +13,8 @@ import { CommonFormComponent } from '../common-form.component';
 export class AlumnosFormComponent
   extends CommonFormComponent<Alumno, AlumnoService>{
 
-  override titulo = "Crear alumno";
-
-  // Atributo - instancia por defecto
-  alumno: Alumno = new Alumno();
-
+    private fotoSeleccionada: File;
+    
   /*
   * Se importa el service de Alumno que contiene
   * el metodo de "crear". 
@@ -33,4 +30,9 @@ export class AlumnosFormComponent
     this.nombreModel = Alumno.name;
   }
 
+  public seleccionarFoto(evento): void{
+
+    this.fotoSeleccionada = evento.target.files[0];
+    console.info(this.fotoSeleccionada);
+  }
 }
