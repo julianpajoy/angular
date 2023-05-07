@@ -43,7 +43,7 @@
             <div class="form-group">
                 <!-- interrogación (?) es un If y el dos puntos (:) es el Else -->
                 <button type="button" class="btn btn-primary" 
-                    (click)="modelo.id? editarAlumno(): crear()">
+                    (click)="modelo.id? editar(): crear()">
                     {{ modelo.id? 'Actualizar': 'Crear' }}
                 </button>
             </div>

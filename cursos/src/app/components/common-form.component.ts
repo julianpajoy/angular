@@ -73,7 +73,7 @@ export abstract class CommonFormComponent<E extends Generico, S extends ComunSer
   }
 
 
-  public editarAlumno(): void {
+  public editar(): void {
     this.servicio.editar(this.modelo).subscribe({
       next: m => {
         console.log(m);

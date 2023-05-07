@@ -35,4 +35,59 @@ export class AlumnosFormComponent
     this.fotoSeleccionada = evento.target.files[0];
     console.info(this.fotoSeleccionada);
   }
+
+  /*
+  Se sobreescribe el metodo "crear" dado que el alumno, puede venir sin foto
+  como tambien puede venir con foto.
+  */
+  public override crear(): void{
+
+    // Si no selecciona foto se llama al metodo padre "crear"
+    if(!this.fotoSeleccionada){
+      super.crear();
+    }
+    else{
+      this.servicio.crearConFoto(this.modelo, this.fotoSeleccionada).subscribe({
+        next: alumno => {
+          console.log(alumno);
+          Swal.fire('Nuevo:', `${this.nombreModel} ${alumno.nombre} creado con éxito`, 'success');
+          this.redirigir.navigate([this.redirigido]);
+        },
+        error: err => {
+          if (err.status === 400) {
+            this.errores = err.error;
+            console.log(this.errores);
+          }
+        }
+      });
+    }
+  }
+
+
+  /*
+  Se sobreescribe el metodo "editar" dado que el alumno, puede venir sin foto
+  como tambien puede venir con foto.
+  */
+  public override editar(): void{
+
+    // Si no selecciona foto se llama al metodo padre "crear"
+    if(!this.fotoSeleccionada){
+      super.editar();
+    }
+    else{
+      this.servicio.editarConFoto(this.modelo, this.fotoSeleccionada).subscribe({
+        next: alumno => {
+          console.log(alumno);
+          Swal.fire('Modificado:', `${this.nombreModel} ${alumno.nombre} actualizado con éxito`, 'success');
+          this.redirigir.navigate([this.redirigido]);
+        },
+        error: err => {
+          if (err.status === 400) {
+            this.errores = err.error;
+            console.log(this.errores);
+          }
+        }
+      });
+    }
+  }
 }

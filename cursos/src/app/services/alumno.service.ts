@@ -45,7 +45,7 @@ export class AlumnoService extends ComunService<Alumno>{
     formularioData.append('apellido', alumno.apellido);
     formularioData.append('email', alumno.email);
 
-    return this.http.put<Alumno>(`${this.basePuntofinal}/crear-con-foto/${alumno.id}`, formularioData);
+    return this.http.put<Alumno>(`${this.basePuntofinal}/editar-con-foto/${alumno.id}`, formularioData);
   }
 
 }
