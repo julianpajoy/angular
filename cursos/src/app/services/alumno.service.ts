@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Alumno } from '../models/alumno';
 import { ComunService } from './comun.service';
+import { BASE_ENDPOINT } from '../config/app'; // Ruta base
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnoService extends ComunService<Alumno>{
 
-  protected override basePuntofinal = 'http://localhost:8090/api/alumnos';
+  protected override basePuntofinal = BASE_ENDPOINT + '/alumnos';
 
   constructor(override http: HttpClient) {
     super(http);

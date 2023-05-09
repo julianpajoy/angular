@@ -9,6 +9,7 @@
             <thead> <!-- Tabla Encabezado -->
                 <tr> <!-- Columna -->
                     <th>id</th> <!-- A1 -->
+                    <th>Foto</th>
                     <th>Nombre</th> <!-- B1-->
                     <th>Apellido</th>
                     <th>Email</th>
@@ -20,6 +21,25 @@
             <tbody> <!-- Tabla Cuerpo -->
                 <tr *ngFor="let alumno of lista"> <!-- Cada fila de la tabla -->
                     <td>{{alumno.id}}</td> <!-- A2 -->
+                    <td>
+                        <img
+                        *ngIf="alumno.fotoHashCode"
+                        [src]="baseEndpoint + '/cargas-fotos/img/' + alumno.id
+                        + '?fotoHashCode =' + alumno.fotoHashCode"
+                        class="img-thumbnail rounded"
+                        style="width: 64px; cursor: grab;"
+                        >
+
+                        <!-- «!alumno.fotoHashCode» es ditinto de Foto Hash Code 
+                            src="/assets/Imagenes/no-foto.jpg" -> Es valido
+                        -->
+                        <img
+                        *ngIf="!alumno.fotoHashCode"
+                        [src]="'/assets/Imagenes/no-foto.jpg'"
+                        class="img-thumbnail rounded"
+                        style="width: 64px; cursor: grab;"
+                        >
+                    </td>
                     <td>{{alumno.nombre}}</td> <!-- B2-->
                     <td>{{alumno.apellido | uppercase}}</td>
                     <td>{{alumno.email}}</td>
