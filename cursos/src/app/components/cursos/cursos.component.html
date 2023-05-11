@@ -1,1 +1,51 @@
-<p>cursos works!</p>
+<div class="card text-bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-info btn-sm" routerLink="/cursos/form">Crear</button>
+        <div class="alert alert-info" *ngIf="lista?.length==0">
+            No hay cursos en el base de datos.
+        </div>
+        <table class="table table-hover table-striped" *ngIf="lista?.length>0">
+            <thead> <!-- Tabla Encabezado -->
+                <tr> <!-- Columna -->
+                    <th>id</th> <!-- A1 -->
+                    <th>Nombre</th> <!-- B1-->
+                    <th>Fecha creación</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody> <!-- Tabla Cuerpo -->
+                <tr *ngFor="let curso of lista"> <!-- Cada fila de la tabla -->
+
+                    <td>{{curso.id}}</td> <!-- A2 -->
+                    <td>{{curso.nombre}}</td> <!-- B2-->
+                    <td>{{curso.createAt | date: 'd/M/yyyy'}}</td>
+
+                    <td>
+                        <button class="btn btn-primary my-2" 
+                        [routerLink]="['/cursos/form', curso.id]">¿editar?</button>
+                    </td>
+
+                    <td>
+                        <button (click)="eliminar(curso)" class="btn btn-danger btn-sm">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Cambiar entre pagina, a ese evento se le conoce como "page" -->
+        <mat-paginator [length] = "totalRegistros"
+              [pageSize] = "totalPorPagina"
+              [pageIndex] = "paginaActual"
+              [pageSizeOptions] = "opcTamanioPagina"
+              aria-label = "Select page"
+              (page) = "paginar($event)"
+              showFirstLastButtons
+              class="float-left mx-2"
+              >
+        </mat-paginator>
+
+      </div>
+  </div>

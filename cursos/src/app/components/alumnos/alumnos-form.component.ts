@@ -20,13 +20,13 @@ export class AlumnosFormComponent
   * el metodo de "crear". 
   */
   constructor(servicio: AlumnoService,
-    redirigir: Router,
+    enrutador: Router,
     ruta: ActivatedRoute) {
       
-    super(servicio, redirigir, ruta);
+    super(servicio, enrutador, ruta);
     this.titulo = "Crear alumno";
     this.modelo = new Alumno();
-    this.redirigido = '/alumnos';
+    this.redirigir = '/alumnos';
     this.nombreModel = Alumno.name;
   }
 
@@ -34,6 +34,22 @@ export class AlumnosFormComponent
 
     this.fotoSeleccionada = evento.target.files[0];
     console.info(this.fotoSeleccionada);
+
+    /*
+      «type.indexOf('image')» para validar si es contenido 
+      del tipo «image» con el metodo «indexOf».
+
+      Si es menor que cero no contiene el "image" por tanto, 
+      se deja en nulo la foto seleccionada.
+    */
+    if(this.fotoSeleccionada.type.indexOf('image') < 0){
+      this.fotoSeleccionada = null;
+      Swal.fire(
+        'Error al seleccionar la foto: ',
+        'El archivo debe ser del tipo imagen',
+        'error'
+      );
+    }
   }
 
   /*
@@ -51,7 +67,7 @@ export class AlumnosFormComponent
         next: alumno => {
           console.log(alumno);
           Swal.fire('Nuevo:', `${this.nombreModel} ${alumno.nombre} creado con éxito`, 'success');
-          this.redirigir.navigate([this.redirigido]);
+          this.enrutador.navigate([this.redirigir]); // en revision
         },
         error: err => {
           if (err.status === 400) {
@@ -79,7 +95,7 @@ export class AlumnosFormComponent
         next: alumno => {
           console.log(alumno);
           Swal.fire('Modificado:', `${this.nombreModel} ${alumno.nombre} actualizado con éxito`, 'success');
-          this.redirigir.navigate([this.redirigido]);
+          this.enrutador.navigate([this.redirigir]);
         },
         error: err => {
           if (err.status === 400) {

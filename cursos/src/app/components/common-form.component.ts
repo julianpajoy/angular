@@ -18,16 +18,21 @@ export abstract class CommonFormComponent<E extends Generico, S extends ComunSer
   errores: any;
 
   // Para asignar la ruta «this.redirigir.navigate(['/alumnos']);»
-  protected redirigido: string;
+  protected redirigir: string;
 
   protected nombreModel: string;
 
   /*
   * Se importa el service de Alumno que contiene
   * el metodo de "crear". 
+  * 
+  * «Router»: Esto se utiliza para rastrear que pagina activo el enrutador 
+  * por ultima vez. Cuando falla un intento de navegacion, A continuacion, 
+  * el enrutador puede utilizar esto para calcular como restaurar el estado 
+  * a la actividad anterior pagina.
   */
   constructor(@Inject('servicio') protected servicio: S,
-        protected redirigir: Router,
+    protected enrutador: Router, // Devuelve al listado inicial
     protected ruta: ActivatedRoute) { } // Obtener parametros de la ruta
 
   ngOnInit() {
@@ -60,7 +65,7 @@ export abstract class CommonFormComponent<E extends Generico, S extends ComunSer
       next: m => {
         console.log(m);
         Swal.fire('Nuevo:', `${this.nombreModel} ${m.nombre} creado con éxito`, 'success');
-        this.redirigir.navigate([this.redirigido]);
+        this.enrutador.navigate([this.redirigir]);
       },
       error: err => {
         if (err.status === 400) { // Error "Bad request"
@@ -78,7 +83,7 @@ export abstract class CommonFormComponent<E extends Generico, S extends ComunSer
       next: m => {
         console.log(m);
         Swal.fire('Modificado', `${this.nombreModel} ${m.nombre} actualizado con éxito`, 'success');
-        this.redirigir.navigate([this.redirigido]);
+        this.enrutador.navigate([this.redirigir]);
       },
       error: err => {
         if (err.status === 400) { // Error "Bad request"
