@@ -40,7 +40,10 @@ export abstract class CommonFormComponent<E extends Generico, S extends ComunSer
       const id: number = +parametros.get('id');
       //const id: number = +(parametros.get('id') != null);
       if (id) {
-        this.servicio.ver(id).subscribe(modelo => this.modelo = modelo);
+        this.servicio.ver(id).subscribe(modelo => {
+          this.modelo = modelo;
+          this.titulo = 'Editar ' + this.nombreModel; // En caso de edicion diga "Editar examen"
+        });
       }
     }
     );

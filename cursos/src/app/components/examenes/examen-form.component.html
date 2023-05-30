@@ -1,0 +1,95 @@
+<div class="card text-bg-light mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2" routerLink="/examenes">Regresar</button>
+
+        <!-- Formulario para llenar con los datos -->
+        <form>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" class="form-control" id="nombre"
+                [(ngModel)] = "modelo.nombre">
+                <!-- Mensaje de error del backend -->
+                <div class="alert alert-danger" *ngIf="errores?.nombre">
+                    {{ errores.nombre }}
+                </div>
+            </div>
+
+            <!-- Asignatura padre -->
+            <div class="form-group">
+                <label for="asignaturaPadre"> <!-- Enlazar esta etiqueta con el "select" -->
+                    Asignatura
+                </label>
+                
+                <!-- Un evento (change) es para cuando se seleccciona un elemento invoque a un metodo 
+                este se usara para invocar el metodo y cargar los datos de asignatura hija -->
+                <select (change)="cargarHijos()"
+                [compareWith]="compararAsignatura"
+                [(ngModel)]="modelo.asignaturaPadre" class="form-control" name="asignaturaPadre" id="asignaturaPadre">
+                    <option [ngValue]="undefined">--- seleccionar una asignatura ---</option>
+                    <option *ngFor="let asignatura of asignaturaPadre" [ngValue]="asignatura">
+                        {{ asignatura.nombre }}
+                    </option>
+                </select>
+                <!-- Validar errores de que seleccione una asignatura Padre -->
+                <div class="alert alert-danger" *ngIf="errores?.asignaturaPadre">
+                    {{ errores.asignaturaPadre }}
+                </div>
+            </div>
+
+            <!-- Asignatura hija -->
+            <div class="form-group">
+                <label for="asignaturaHija"> <!-- Enlazar esta etiqueta con el "select" -->
+                    Asignatura hija
+                </label>
+                <select 
+                [compareWith]="compararAsignatura"
+                [(ngModel)]="modelo.asignaturaHija" class="form-control" name="asignaturaHija" id="asignaturaHija">
+                    <option [ngValue]="undefined">--- seleccionar una asignatura ---</option>
+                    <option *ngFor="let asignatura of asignaturaHija" [ngValue]="asignatura">
+                        {{ asignatura.nombre }}
+                    </option>
+                </select>
+                <!-- Validar errores de que seleccione una asignatura Hija -->
+                <div class="alert alert-danger" *ngIf="errores?.asignaturaHija">
+                    {{ errores.asignaturaHija }}
+                </div>
+            </div>
+
+            <!-- «(click)="agregarPregunta()»: agregar campo para agregar una pregunta -->
+            <button (click)="agregarPregunta()" class="btn btn-light btn-lg my-3">
+                Agregar pregunta
+            </button>
+
+            <!-- agrega de forma dinamica cada input para ingresar un pregunta -->
+            <div class="form-group" *ngFor="let pregunta of modelo.preguntas; let indice = index">
+                <div class="row">
+                    <div class="col-sm-2"> <!-- Enumeración -->
+                        <label> Pregunta {{ indice+1 }}: </label>
+                    </div>
+
+                    <div class="col-sm-6"> <!-- Input para ingresar texto -->
+                        <input type="text" value="{{ pregunta.texto }}" class="form-control"
+                        (change)="asignarTexto(pregunta, $event)"> <!-- pregunta para poder asignar el texto -->
+                    </div>
+
+                    <div class="col-sm-1">
+                        <button class="btn btn-danger btn-sm"
+                        (click)="eliminarPregunta(pregunta)">
+                        ⌂ Delete
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <!-- interrogación (?) es un If y el dos puntos (:) es el Else -->
+                <button type="button" class="btn btn-primary" 
+                    (click)="modelo.id? editar(): crear()">
+                    {{ modelo.id? 'Actualizar': 'Crear' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
