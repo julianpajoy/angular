@@ -7,6 +7,7 @@ export class Examen implements Generico{
     nombre: string | undefined;
     createAt: string | undefined;
     preguntas: Pregunta[] = [];
-    asignatura: Asignatura | undefined;
+    asignaturaPadre: Asignatura | undefined;
+    asignaturaHija: Asignatura | undefined;
     respondido: boolean | undefined;
 }
